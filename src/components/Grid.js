@@ -59,9 +59,6 @@ class Grid extends Component {
             grid_heights[min_col] += note.getHeight();
         }
     }
-    delete() {
-        console.log('borrar');
-    }
 }
 
 export default Grid;
