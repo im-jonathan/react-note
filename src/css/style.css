@@ -134,10 +134,10 @@ body {
 
 .note {
     display: block;
-    float: left;
     width: 25%;
     padding: 8px;
     box-sizing: border-box;
+    position:absolute;
 }
 
 .note-text {
@@ -183,4 +183,5 @@ body {
 
 .grid {
     margin: 15px 0;
+    position: relative;
 }

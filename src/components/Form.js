@@ -8,13 +8,13 @@ class Form extends Component {
         this.state = {open: false}
     }
 
-    render() {
-        return (
+    render () {
+        return(
             <form className={"addnote" + (this.state.open ? 'open' : '')} onFocus={this.open.bind(this)} onSubmit={this.save.bind(this)} >
-                <input className="addnote-title" type="text" placeholder="Tìtulo" ref="title" />
+                <input className="addnote-title" type="text" placeholder="Título" ref="title" />
                 <textarea className="addnote-text" placeholder="Añadir Nota" ref="text" />
                 <div className="addnote-toolbar">
-                    <button>Hecho</button>
+                    <button>Guardar</button>
                     <a className="addnote-btn-list" />
                 </div>
             </form>
@@ -22,9 +22,9 @@ class Form extends Component {
     }
 
     componentDidMount() {
-        ReactDOM.findDOMNode(this).addEventListener('click', function(e){
+        ReactDOM.findDOMNode(this).addEventListener('click', function(e) {
             e.stopPropagation();
-        });
+        })
     }
 
     open() {
@@ -42,29 +42,18 @@ class Form extends Component {
     }
 
     save(e) {
+        // se evita que la pagina se recargue
+        e.preventDefault();
+
         // se gusrda un objeto con los datos del formulario.
         var note = {
             id: new Date().getTime(),
             title: this.refs.title.value,
             text: this.refs.text.value
         }
-        // se obtienen las notas de localstorage
-        var notes = window.localStorage.getItem('notes');
 
-        if (notes === null) {
-            notes = []; // Creamos una nueva lista vacía
-        } else {
-            notes = JSON.parse(notes); // Decodificamos la cadena
-        }
-
-        // Insertamos la nueva nota al principio de la lista
-        notes.unshift(note);
-
-        // Codificamos la lista como cadena de texto
-        notes = JSON.stringify(notes);
-
-        // Guardamos en localStorage
-        window.localStorage.setItem('notes', notes);
+        // se envia los datos de la nota para que los guarde el viewController
+        this.props.onSave(note);
 
         // limpiamos los imputs del formulario
         this.refs.title.value = '';

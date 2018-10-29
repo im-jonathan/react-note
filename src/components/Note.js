@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 
 class Note extends Component {
     render() {
@@ -14,6 +16,20 @@ class Note extends Component {
             </div>
         );
     }
+
+    setPosition(top, column) {
+        var element = ReactDOM.findDOMNode(this);
+        element.style.top = top + 'px';
+        element.style.left = (column * 25) + '%';
+    }
+
+    getHeight() {
+        var element = ReactDOM.findDOMNode(this);
+        var computedStyle = window.getComputedStyle(element);
+        var height = computedStyle.getPropertyValue('height');
+        return parseInt(height);
+    }
+
 }
 
 export default Note;
